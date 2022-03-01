@@ -1,8 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { AiFillPlayCircle } from "react-icons/ai";
 import { SiEthereum } from "react-icons/si";
 import { BsInfoCircle } from "react-icons/bs";
 import Loader from "./Loader";
+import { TransactionContext } from '../context/TransactionContext';
+
 
 const commonStyle = 'min-h-[70px] sm:px-0 px-2 sm:min-w-[120px] flex justify-center items-center border-[0.5px] border-gray-400 text-sm text-gray-200'; 
 
@@ -19,9 +21,7 @@ const InputComponent = ({placeholder, name, type, value, handleChange }) => (
 );
 
 const Wellcome = () => {
-  const connectWallet = () => {
-    console.log("klikkk");
-  }
+  const { connectWallet } = useContext(TransactionContext);
   const [isLoading, setisLoading] = useState(false);
   
   const handleSubmit = () => {
