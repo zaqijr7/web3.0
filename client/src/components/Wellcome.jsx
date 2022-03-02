@@ -25,6 +25,7 @@ const Wellcome = () => {
   const [isLoading, setisLoading] = useState(false);
   
   const handleSubmit = (e) => {
+    console.log('klick');
     const { addressTo, amount, keyword, message } = formData;
 
     e.preventDefault();
@@ -93,7 +94,7 @@ const Wellcome = () => {
           </div>
           <div className="card-form sm:w-96 w-full p-4">
             <InputComponent placeholder="Address To" name="addressTo" type="text" handleChange={handleChange}/>
-            <InputComponent placeholder="Amount (ETH)" name="ammount" type="number" handleChange={handleChange}/>
+            <InputComponent placeholder="Amount (ETH)" name="amount" type="number" handleChange={handleChange}/>
             <InputComponent placeholder="Keyword (Gif)" name="keyword" type="text" handleChange={handleChange}/>
             <InputComponent placeholder="Enter Message" name="message" type="text" handleChange={handleChange}/>
             <div className='h-[1px] bg-gray-400 my-3'></div>
