@@ -21,10 +21,16 @@ const InputComponent = ({placeholder, name, type, value, handleChange }) => (
 );
 
 const Wellcome = () => {
-  const { connectWallet } = useContext(TransactionContext);
+  const { connectWallet, currentAccount, formData, handleChange, sendTransaction } = useContext(TransactionContext);
   const [isLoading, setisLoading] = useState(false);
   
-  const handleSubmit = () => {
+  const handleSubmit = (e) => {
+    const { addressTo, amount, keyword, message } = formData;
+
+    e.preventDefault();
+
+    if (!addressTo || !amount || !keyword || !message) return;
+    sendTransaction();
 
   }
 
@@ -36,13 +42,15 @@ const Wellcome = () => {
             Send Crypto <br/> accros the world
           </h1>
           <p className='text-left mt-5 text-white font-light md:w-9/12 w-11/12 text-base'>Explore the crypto world. Buy and sell cryptocurrencies easily on the NFCRYP</p>
-          <button 
-            type='button'
-            onClick={connectWallet}
-            className='flex justify-center items-center text-white bg-[#2952e3] hover:bg-[#2546bd] py-2 rounded-full mt-10 font-medium'
-          >
-            Connect To Wallet
-          </button>
+          {!currentAccount && (
+            <button 
+              type='button'
+              onClick={connectWallet}
+              className='flex justify-center items-center text-white bg-[#2952e3] hover:bg-[#2546bd] py-2 rounded-full mt-10 font-medium'
+            >
+              Connect To Wallet
+            </button>
+          )}
           <div className="grid sm:grid-cols-3 grid-cols-2 w-full mt-10">
             <div className={`rounded-tl-2xl ${commonStyle}`}>
               Reliability
@@ -84,10 +92,10 @@ const Wellcome = () => {
             </div>
           </div>
           <div className="card-form sm:w-96 w-full p-4">
-            <InputComponent placeholder="Address To" name="address" type="text"/>
-            <InputComponent placeholder="Amount (ETH)" name="ammount" type="number"/>
-            <InputComponent placeholder="Keyword (Gif)" name="keyword" type="text"/>
-            <InputComponent placeholder="Enter Message" name="message" type="text"/>
+            <InputComponent placeholder="Address To" name="addressTo" type="text" handleChange={handleChange}/>
+            <InputComponent placeholder="Amount (ETH)" name="ammount" type="number" handleChange={handleChange}/>
+            <InputComponent placeholder="Keyword (Gif)" name="keyword" type="text" handleChange={handleChange}/>
+            <InputComponent placeholder="Enter Message" name="message" type="text" handleChange={handleChange}/>
             <div className='h-[1px] bg-gray-400 my-3'></div>
             {isLoading ?
               <Loader/>
